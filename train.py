@@ -200,19 +200,19 @@ def train(args):
                     
     #--------------------------------------------------
 
-
-    history = model.fit(
-        steps_per_epoch=len(train_generator),
-        x=train_generator,
-        epochs=epochs,
-        validation_data=test_generator,
-        validation_steps=len(test_generator),
-        verbose=1,
-        workers=8,
-        max_queue_size=8,
-        use_multiprocessing=False,
-        callbacks= callback_list
-    )
+    with tf.device("GPU"):
+        history = model.fit(
+            steps_per_epoch=len(train_generator),
+            x=train_generator,
+            epochs=epochs,
+            validation_data=test_generator,
+            validation_steps=len(test_generator),
+            verbose=1,
+            workers=8,
+            max_queue_size=8,
+            use_multiprocessing=False,
+            callbacks= callback_list
+        )
 
     # print(history)
 
